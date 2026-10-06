@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sound Wave Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff4cc;--card:#fffdf3;--ink:#3b2410;--mute:#7a5a3a;--or:#ff8a1f;--or-d:#c95a00;--ye:#ffd23f;--gr:#3db54a;--gr-d:#1f7a2b;--gr-bg:#d9f5d6;--wr-bg:#ffe0c2;--line:#f0c46a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a1c0a;--card:#3a2810;--ink:#fff0d0;--mute:#d9b886;--or:#ff9d3d;--or-d:#ffb464;--ye:#ffd23f;--gr:#5fd16b;--gr-d:#8be894;--gr-bg:#1f4a26;--wr-bg:#5a3210;--line:#6b4a1c}}
+:root[data-theme="dark"]{--bg:#2a1c0a;--card:#3a2810;--ink:#fff0d0;--mute:#d9b886;--or:#ff9d3d;--or-d:#ffb464;--ye:#ffd23f;--gr:#5fd16b;--gr-d:#8be894;--gr-bg:#1f4a26;--wr-bg:#5a3210;--line:#6b4a1c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:500 18px/1.4 "Baloo 2",system-ui,sans-serif;background-image:radial-gradient(circle at 10% 8%,var(--ye) 0 70px,transparent 71px),radial-gradient(circle at 94% 96%,var(--gr) 0 90px,transparent 91px);background-attachment:fixed}
+.wrap{max-width:720px;margin:0 auto;padding:18px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.brand{font-weight:800;font-size:22px;color:var(--or-d)}
+.pill{background:var(--card);border:2.5px solid var(--line);border-radius:999px;padding:2px 14px;font-weight:700}
+button{font:inherit;font-weight:800;cursor:pointer;border:0;border-radius:16px;padding:12px 22px;color:#2b1700;background:var(--ye);box-shadow:0 5px 0 var(--or-d);transition:transform .08s,box-shadow .08s}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--or-d)}
+button:focus-visible{outline:4px solid var(--gr);outline-offset:3px}
+button.big{font-size:24px;padding:14px 34px;background:var(--or);color:#fff;box-shadow:0 6px 0 var(--or-d)}
+button.small{padding:4px 12px;font-size:16px;box-shadow:0 3px 0 var(--or-d)}
+.card{background:var(--card);border:3px solid var(--line);border-radius:24px;padding:22px}
+.hide{display:none!important}
+.hero{text-align:center}
+.hero h1{font-size:clamp(34px,8vw,54px);line-height:1.05;margin:6px 0 10px;color:var(--or-d);font-weight:800}
+.hero .ear{font-size:70px;line-height:1}
+.hero p{margin:0 auto 20px;max-width:34ch;color:var(--mute)}
+.bar{height:16px;border-radius:99px;background:var(--card);border:2.5px solid var(--line);overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ye),var(--gr));transition:width .3s}
+.chip{display:inline-block;background:var(--gr);color:#08330e;border-radius:99px;padding:0 14px;font-weight:800;font-size:16px;margin-bottom:8px}
+:root[data-theme="dark"] .chip{color:#08330e}
+h2{font-size:clamp(22px,4.6vw,30px);line-height:1.2;margin:0 0 16px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;background:var(--card);color:var(--ink);border:3px solid var(--line);box-shadow:0 4px 0 var(--line);font-weight:700;padding:12px 14px}
+.opt:hover:not(:disabled){border-color:var(--or)}
+.opt b{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--ye);color:#2b1700}
+.opt.ok{background:var(--gr-bg);border-color:var(--gr);box-shadow:0 4px 0 var(--gr)}
+.opt.ok b{background:var(--gr);color:#08330e}
+.opt.no{background:var(--wr-bg);border-color:var(--or);box-shadow:0 4px 0 var(--or)}
+.opt.no b{background:var(--or);color:#fff}
+.opt:disabled{cursor:default}
+.fb{margin-top:16px;border-radius:18px;padding:12px 16px;font-weight:700}
+.fb.good{background:var(--gr-bg);border:3px solid var(--gr)}
+.fb.bad{background:var(--wr-bg);border:3px solid var(--or)}
+.fb p{margin:2px 0 12px;font-weight:500}
+.stars{font-size:54px;letter-spacing:6px;text-align:center}
+.res{text-align:center}
+.res h2{font-size:34px;color:var(--or-d);margin-bottom:4px}
+.score{font-size:48px;font-weight:800;color:var(--gr-d)}
+.review{text-align:left;margin:14px 0}
+.review li{margin:6px 0}
+.review small{display:block;color:var(--mute);font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">🔊 Sound Wave Quiz</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span class="pill hide" id="hud">⭐ <span id="sc">0</span></span>
+      <button class="small" id="mute" type="button" aria-label="Turn sound effects off">🔔 On</button>
+    </div>
+  </div>
+
+  <section class="card hero" id="start">
+    <div class="ear">👂</div>
+    <h1>Ready to be a sound expert?</h1>
+    <p>Answer 20 questions about vibrations, pitch, loudness and echoes. Get as many stars as you can!</p>
+    <button class="big" id="go" type="button">Start the quiz</button>
+  </section>
+
+  <section class="hide" id="game">
+    <div class="bar" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="20" id="pb"><i id="pf"></i></div>
+    <div class="card">
+      <span class="chip" id="chip"></span>
+      <div style="color:var(--mute);font-weight:700" id="qn"></div>
+      <h2 id="q"></h2>
+      <div class="opts" id="opts"></div>
+      <div class="fb hide" id="fb" role="status" aria-live="polite"><div id="fbt"></div><p id="fbe"></p><button id="next" type="button">Next question</button></div>
+    </div>
+  </section>
+
+  <section class="card res hide" id="end">
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <h2 id="rt"></h2>
+    <div class="score" id="rs"></div>
+    <div class="review hide" id="rv"><b>Let's practise these again:</b><ul id="rl"></ul></div>
+    <button class="big" id="again" type="button">Play again</button>
+  </section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const L=['A','B','C','D'];
+const MC='Multiple choice', TM='Match the term', WH='What happens?';
+const defs=['A substance through which sound travels','How high or low a sound is','A reflected sound that we hear again'];
+const res=['An echo may be heard.','A louder sound is produced.'];
+const Q=[
+[MC,'What produces a sound?',['Light','Vibration','Heat','Electricity'],1,'Things that vibrate make sound!'],
+[MC,'What does vibration mean?',['Moving in one direction','Moving slowly up and down','Moving backwards and forwards quickly','Moving from one place to another'],2,'A vibration is a quick back-and-forth movement.'],
+[MC,'Which statement about sound waves is correct?',['Sound can travel through a vacuum.','Sound is produced by vibrating objects.','Sound can only travel through air.','Sound is a type of light wave.'],1,'Vibrating objects make sound waves.'],
+[MC,'What is a medium?',['A source of sound','A substance through which sound travels','The loudness of a sound','The vibration of an object'],1,'Air, water and solids are mediums that sound can travel through.'],
+[MC,'Which of these can sound travel through?',['Only gases','Only liquids','Only solids','Solids, liquids, and gases'],3,'Sound can travel through all three!'],
+[MC,'Why can sound not travel through a vacuum?',['There are no particles to vibrate.','There is no light in a vacuum.','Sound becomes too quiet.','Sound needs heat to travel.'],0,'A vacuum is empty, so there are no particles to pass the vibration along.'],
+[MC,'Which sound has the highest pitch?',['Thunder','A large drum','A bird singing','A large truck engine'],2,'Small things like birds make high sounds. Big things make low sounds.'],
+[MC,'What does loudness describe?',['How high or low a sound is','How loud or soft a sound is','How fast sound travels','How far sound travels'],1,'Loudness tells us how loud or soft a sound is.'],
+[MC,'What happens when a drum is hit harder?',['It vibrates less.','It stops vibrating.','It produces a louder sound.','Its pitch always becomes higher.'],2,'A harder hit makes bigger vibrations, so the sound is louder.'],
+[MC,'What happens when a sound wave hits a large, smooth wall?',['It disappears.','It can be reflected.','It changes into light.','It stops completely.'],1,'Smooth, hard walls bounce sound back.'],
+[MC,'What is an echo?',['A new sound produced by an object','A sound that is absorbed by a surface','A reflected sound that we hear again','A very loud sound'],2,'An echo is sound that bounced back to you.'],
+[MC,'Which surface reflects sound best?',['A large, smooth wall','A thick carpet','A curtain','A pile of clothes'],0,'Hard, smooth surfaces reflect sound. Soft things soak it up.'],
+[MC,'Why can echoes be unwanted in a theatre?',['They make the room too bright.','They can make speech difficult to understand.','They make sounds travel faster.','They make sounds quieter.'],1,'Echoes mix with the voice, so words are hard to understand.'],
+[MC,'How can a boat use echoes to measure the depth of water?',['By measuring the pitch of the sound','By measuring the loudness of the sound','By measuring the time taken for the sound to return','By measuring the temperature of the water'],2,'The longer the echo takes to come back, the deeper the water.'],
+[MC,'How do bats use echoes?',['To produce light','To find objects and prey','To make objects vibrate','To measure temperature'],1,'Bats listen to echoes to find things in the dark.'],
+[TM,'Pitch',defs,1,'Pitch is how high or low a sound is.'],
+[TM,'Medium',defs,0,'A medium is a substance sound travels through.'],
+[TM,'Echo',defs,2,'An echo is a reflected sound that we hear again.'],
+[WH,'A drum is hit harder.',res,1,'A harder hit means bigger vibrations and a louder sound.'],
+[WH,'A sound wave hits a smooth wall.',res,0,'The wall reflects the sound, so you may hear an echo.']
+];
+let i=0,score=0,miss=[],muted=false,locked=false,ac=null;
+function beep(ok){if(muted)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume();
+ (ok?[523,659,784]:[220,175]).forEach((f,k)=>{const o=ac.createOscillator(),g=ac.createGain();o.type=ok?'triangle':'sine';o.frequency.value=f;const t=ac.currentTime+k*0.12;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.12,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+0.2);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+0.22)})}catch(e){}}
+$('mute').onclick=()=>{muted=!muted;$('mute').textContent=muted?'🔕 Off':'🔔 On';$('mute').setAttribute('aria-label',muted?'Turn sound effects on':'Turn sound effects off')};
+function show(id){['start','game','end'].forEach(s=>$(s).classList.toggle('hide',s!==id));$('hud').classList.toggle('hide',id!=='game')}
+function stem(q){return q[0]===TM?'Which definition matches “'+q[1]+'”?':q[0]===WH?q[1]+' What is the result?':q[1]}
+function render(){
+  const q=Q[i];locked=false;
+  $('chip').textContent=q[0];$('qn').textContent='Question '+(i+1)+' of '+Q.length;
+  $('q').textContent=stem(q);$('sc').textContent=score;
+  $('pf').style.width=(i/Q.length*100)+'%';$('pb').setAttribute('aria-valuenow',i);
+  $('fb').classList.add('hide');
+  const box=$('opts');box.innerHTML='';
+  q[2].forEach((t,k)=>{const b=document.createElement('button');b.className='opt';b.type='button';b.innerHTML='<b>'+L[k]+'</b><span></span>';b.lastChild.textContent=t;b.onclick=()=>pick(k,b);box.appendChild(b)});
+}
+function pick(k,btn){
+  if(locked)return;locked=true;const q=Q[i],ok=k===q[3],bs=[...$('opts').children];
+  bs.forEach((b,n)=>{b.disabled=true;if(n===q[3]){b.classList.add('ok');b.firstChild.textContent='✓'}});
+  if(!ok){btn.classList.add('no');btn.firstChild.textContent='✗';miss.push(i)}else score++;
+  $('sc').textContent=score;beep(ok);
+  const f=$('fb');f.className='fb '+(ok?'good':'bad');
+  $('fbt').textContent=ok?['Great job! 🎉','Correct! 🌟','You got it! 👏'][i%3]:'Nice try! The right answer is '+L[q[3]]+'.';
+  $('fbe').textContent=q[4];$('next').textContent=i===Q.length-1?'See my stars':'Next question';
+  $('next').focus();
+}
+$('next').onclick=()=>{i++;i<Q.length?render():finish()};
+function finish(){
+  show('end');$('pf').style.width='100%';
+  const n=score>=18?3:score>=14?2:score>=8?1:0;
+  $('stars').textContent='⭐'.repeat(n)+'☆'.repeat(3-n);
+  $('rt').textContent=n===3?'Sound superstar!':n===2?'Great listening!':n===1?'Good start!':'Keep practising!';
+  $('rs').textContent=score+' / '+Q.length;
+  const rl=$('rl');rl.innerHTML='';
+  miss.forEach(m=>{const q=Q[m],li=document.createElement('li');li.textContent=q[0]===TM?'Pitch, medium or echo: '+q[1]:q[1];const s=document.createElement('small');s.textContent=q[4];li.appendChild(s);rl.appendChild(li)});
+  $('rv').classList.toggle('hide',!miss.length);
+  if(n>=2)beep(true);
+}
+function start(){i=0;score=0;miss=[];show('game');render()}
+$('go').onclick=start;$('again').onclick=start;
+</script>
+</body>
+</html>
